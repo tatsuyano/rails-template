@@ -101,6 +101,10 @@ run "wget #{@bootstrap_url}/glyphicons-halflings-regular.ttf   -P vendor/assets/
 run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff  -P vendor/assets/fonts/"
 run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff2 -P vendor/assets/fonts/"
 
+@repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
+run "rm app/assets/stylesheets/bootstrap_and_overrides.css.less"
+run "wget #{@repo_url}/app/assets/stylesheets/bootstrap_and_overrides.css.less -P app/assets/stylesheets/"
+
 # git initalize setting
 after_bundle do
   git :init
