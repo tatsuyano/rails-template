@@ -91,15 +91,14 @@ environment "config.active_record.default_timezone = :local"
 generate 'bootstrap:install'
 generate 'bootstrap:layout application'
 environment 'config.assets.paths << "#{Rails}/vendor/assets/fonts"'
-run 'mkdir -p vendor/assets/fonts'
 
-# Glyphicons to v1.9
-@bootstrap_url = 'https://github.com/twbs/bootstrap/blob/master/dist/fonts'
-run "wget #{@bootstrap_url}/glyphicons-halflings-regular.eot   -P vendor/assets/fonts/"
-run "wget #{@bootstrap_url}/glyphicons-halflings-regular.svg   -P vendor/assets/fonts/"
-run "wget #{@bootstrap_url}/glyphicons-halflings-regular.ttf   -P vendor/assets/fonts/"
-run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff  -P vendor/assets/fonts/"
-run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff2 -P vendor/assets/fonts/"
+# Glyphicons to bootstrap-3.3.2
+@font_url = 'https://github.com/tatsuyano/rails-template/blob/master/vendor/assets/fonts'
+run "wget #{@font_url}/glyphicons-halflings-regular.eot   -P vendor/assets/fonts/"
+run "wget #{@font_url}/glyphicons-halflings-regular.svg   -P vendor/assets/fonts/"
+run "wget #{@font_url}/glyphicons-halflings-regular.ttf   -P vendor/assets/fonts/"
+run "wget #{@font_url}/glyphicons-halflings-regular.woff  -P vendor/assets/fonts/"
+run "wget #{@font_url}/glyphicons-halflings-regular.woff2 -P vendor/assets/fonts/"
 
 @repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
 run "rm app/assets/stylesheets/bootstrap_and_overrides.css.less"
