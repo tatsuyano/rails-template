@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-@repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
 @app_name = app_name
 
 gem 'rails', '4.2.0'
@@ -9,7 +8,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-#gem 'turbolinks'
+gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 
 # Bootstrap3
@@ -91,8 +90,16 @@ environment "config.active_record.default_timezone = :local"
 # bootstrap
 generate 'bootstrap:install'
 generate 'bootstrap:layout application'
-get "#{@repo_url}/vendor/assets/fonts", 'vendor/assets/'
 environment 'config.assets.paths << "#{Rails}/vendor/assets/fonts"'
+run 'mkdir -p vendor/assets/fonts'
+
+# Glyphicons to v1.9
+@bootstrap_url = 'https://github.com/twbs/bootstrap/blob/master/dist/fonts'
+run "wget #{@bootstrap_url}/glyphicons-halflings-regular.eot   -P vendor/assets/fonts/"
+run "wget #{@bootstrap_url}/glyphicons-halflings-regular.svg   -P vendor/assets/fonts/"
+run "wget #{@bootstrap_url}/glyphicons-halflings-regular.ttf   -P vendor/assets/fonts/"
+run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff  -P vendor/assets/fonts/"
+run "wget #{@bootstrap_url}/glyphicons-halflings-regular.woff2 -P vendor/assets/fonts/"
 
 # git initalize setting
 after_bundle do
