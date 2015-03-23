@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+@repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
 @app_name = app_name
 
 gem 'rails', '4.2.0'
@@ -90,6 +91,8 @@ environment "config.active_record.default_timezone = :local"
 # bootstrap
 generate 'bootstrap:install'
 generate 'bootstrap:layout application'
+get "#{@repo_url}/vendor/assets/fonts", 'vendor/assets/'
+environment 'config.assets.paths << "#{Rails}/vendor/assets/fonts"'
 
 # git initalize setting
 after_bundle do
