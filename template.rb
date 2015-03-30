@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+gem 'annotate' # modelクラスにスキーマ情報の注釈をつける
 
 # Bootstrap3
 gem 'therubyracer'
@@ -82,6 +83,7 @@ File.open("config/database.yml","w") do |file|
 end
 
 run 'bundle exec rake db:create'
+run 'rails g annotate:install'
 
 # config/application
 environment "config.time_zone = 'Tokyo'"
