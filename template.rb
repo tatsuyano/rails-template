@@ -11,11 +11,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'annotate' # modelクラスにスキーマ情報の注釈をつける
-
-# Bootstrap3
-gem 'therubyracer'
-gem 'less-rails'
-gem 'twitter-bootstrap-rails'
+gem 'bootstrap-sass' # bootstrap
 
 gem_group :development, :test do
   gem 'spring'
@@ -90,21 +86,22 @@ environment "config.time_zone = 'Tokyo'"
 environment "config.active_record.default_timezone = :local"
 
 # bootstrap
-generate 'bootstrap:install'
-generate 'bootstrap:layout application'
-environment 'config.assets.paths << "#{Rails}/vendor/assets/fonts"'
+run "rm app/assets/stylesheets/application.css"
+run "rm app/assets/javascripts/application.js"
 
-# Glyphicons to bootstrap-3.3.2
-@font_url = 'https://github.com/tatsuyano/rails-template/blob/master/vendor/assets/fonts'
-run "wget #{@font_url}/glyphicons-halflings-regular.eot   -P vendor/assets/fonts/"
-run "wget #{@font_url}/glyphicons-halflings-regular.svg   -P vendor/assets/fonts/"
-run "wget #{@font_url}/glyphicons-halflings-regular.ttf   -P vendor/assets/fonts/"
-run "wget #{@font_url}/glyphicons-halflings-regular.woff  -P vendor/assets/fonts/"
-run "wget #{@font_url}/glyphicons-halflings-regular.woff2 -P vendor/assets/fonts/"
+File.open("app/assets/stylesheets/application.scss","w") do |file|
+  file.puts <<-SCSS
+@import "bootstrap-sprockets";
+@import "bootstrap";
+SCSS
+end
 
-@repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
-run "rm app/assets/stylesheets/bootstrap_and_overrides.css.less"
-run "wget #{@repo_url}/app/assets/stylesheets/bootstrap_and_overrides.css.less -P app/assets/stylesheets/"
+File.open("app/assets/javascripts/application.js","w") do |file|
+  file.puts <<-JS
+//= require jquery
+//= require bootstrap-sprockets
+JS
+end
 
 # git initalize setting
 after_bundle do
