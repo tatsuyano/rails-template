@@ -12,5 +12,4 @@ Rails application template.
 
 ```
 $ rails new app_name -m https://raw.githubusercontent.com/tatsuyano/rails-template/master/template.rb
-
 ```
