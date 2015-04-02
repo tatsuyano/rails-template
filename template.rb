@@ -81,25 +81,62 @@ end
 run 'bundle exec rake db:create'
 run 'rails g annotate:install'
 
-# config/application
-environment "config.time_zone = 'Tokyo'"
-environment "config.active_record.default_timezone = :local"
+# set config/application.rb
+application  do
+  %q{
+    # Set timezone
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
+    # 日本語化
+    I18n.enforce_available_locales = true
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.default_locale = :ja
+
+    # generatorの設定
+    config.generators do |g|
+      g.orm :active_record
+      g.assets false
+      g.helper false
+
+      # RSpec
+      g.test_framework  :rspec, :fixture => true
+      g.fixture_replacement :factory_girl, :dir => "spec/factories"
+      g.view_specs false
+      g.controller_specs true
+      g.routing_specs false
+      g.helper_specs false
+      g.request_specs false
+    end
+  }
+end
 
 # bootstrap
 run "rm app/assets/stylesheets/application.css"
 run "rm app/assets/javascripts/application.js"
+run 'mkdir -p app/assets/stylesheets/partials/'
+
+# generatorでcssを生成しないようにしたため、partialsディレクトリ配下にファイルが一つもないと
+# File to import not found or unreadable エラーが出てしまうので、それを防ぐために
+# ブランクの共通にcssを生成する。ただし読み込み順序は保証されていないので注意
+run 'touch app/assets/stylesheets/partials/normalize.scss'
+
+@repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
+run "wget #{@repo_url}/app/assets/stylesheets/_bootstrap-custom.scss -P app/assets/stylesheets/"
+run "wget #{@repo_url}/app/assets/javascripts/bootstrap-sprockets-custom.js -P app/assets/javascripts/"
 
 File.open("app/assets/stylesheets/application.scss","w") do |file|
   file.puts <<-SCSS
 @import "bootstrap-sprockets";
-@import "bootstrap";
+@import "bootstrap-custom";
+@import "partials/*";
 SCSS
 end
 
 File.open("app/assets/javascripts/application.js","w") do |file|
   file.puts <<-JS
 //= require jquery
-//= require bootstrap-sprockets
+//= require bootstrap-sprockets-custom
 JS
 end
 
