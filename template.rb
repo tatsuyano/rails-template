@@ -117,9 +117,9 @@ run "rm app/assets/javascripts/application.js"
 run 'mkdir -p app/assets/stylesheets/partials/'
 
 # generatorでcssを生成しないようにしたため、partialsディレクトリ配下にファイルが一つもないと
-# File to import not found or unreadable エラーが出てしまうので、それを防ぐために
-# ブランクの共通にcssを生成する。ただし読み込み順序は保証されていないので注意
-run 'touch app/assets/stylesheets/partials/normalize.scss'
+# File to import not found or unreadable エラーが出てしまうので、それを防ぐためにブランクのscssを配置する。
+# partialsにページ固有のscssファイルを配置した後は、blank.scssは削除など対応する
+run 'touch app/assets/stylesheets/partials/blank.scss'
 
 @repo_url = 'https://raw.githubusercontent.com/tatsuyano/rails-template/master'
 run "wget #{@repo_url}/app/assets/stylesheets/_bootstrap-custom.scss -P app/assets/stylesheets/"
