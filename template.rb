@@ -111,6 +111,14 @@ application  do
   }
 end
 
+# i18(ja)
+File.open("config/locales/ja.yml","w") do |file|
+  file.puts <<-JA_YML
+ja:
+  hello: "こんにちは"
+JA_YML
+end
+
 # bootstrap
 run "rm app/assets/stylesheets/application.css"
 run "rm app/assets/javascripts/application.js"
