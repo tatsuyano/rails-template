@@ -2,7 +2,7 @@
 
 @app_name = app_name
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 gem 'pg'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -12,6 +12,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'annotate' # modelクラスにスキーマ情報の注釈をつける
 gem 'bootstrap-sass' # bootstrap
+gem 'rails_config'
 
 gem_group :development, :test do
   gem 'spring'
@@ -51,6 +52,9 @@ run 'bundle exec guard init rspec'
 
 # rm unused files
 run "rm README.rdoc"
+
+# railsconfig
+run "rails g rails_config:install"
 
 # database
 run 'rm config/database.yml'
