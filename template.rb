@@ -148,6 +148,7 @@ end
 File.open("app/assets/javascripts/application.js","w") do |file|
   file.puts <<-JS
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap-sprockets-custom
 JS
 end
